@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from playwright.sync_api import sync_playwright
-
+SEARCH_QUERY = "Атака титанов"
 
 def test_rutube_search_headless():
     artifacts = Path("artifacts")
@@ -14,16 +14,14 @@ def test_rutube_search_headless():
             viewport={"width": 1920, "height": 1080}
         )
 
-        # 1. Открываем RUTUBE
         page.goto(
             "https://rutube.ru/",
             wait_until="domcontentloaded",
             timeout=30000
         )
 
-        # 2. Ищем видео
         search = page.get_by_placeholder("Поиск")
-        search.fill("Лунтик")
+        search.fill(SEARCH_QUERY)
         search.press("Enter")
 
         # 3. Ждём результаты поиска
